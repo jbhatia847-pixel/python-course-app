@@ -1,7 +1,11 @@
 import streamlit as st
 import io
 import contextlib
+from pathlib import Path
 
+# Define project root directory relative to this file
+BASE_DIR = Path(__file__).resolve().parent
+LOGO_PATH = BASE_DIR / "images" / "Shikshaa Simple Learn.jpeg"
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
     page_title="Python Course for Beginners",
