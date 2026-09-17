@@ -21,6 +21,10 @@ st.set_page_config(
     page_icon="🐍",
     layout="wide"
 )
+st.html("""
+    <meta name="description" content="Learn Python from scratch with an interactive code runner, practice quizzes, and projects. Free beginner python tutorial.">
+    <meta name="google-site-verification" content="JxaiM4QVoF-4-DMkyA1vqu1H_kGswNAoaM91Spvp-Eo" />
+""")
 
 # --- CUSTOM CSS ANIMATIONS ---
 st.markdown("""
