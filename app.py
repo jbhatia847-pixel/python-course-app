@@ -3,9 +3,18 @@ import io
 import contextlib
 from pathlib import Path
 
-# Define project root directory relative to this file
-BASE_DIR = Path(__file__).resolve().parent
-LOGO_PATH = BASE_DIR / "images" / "Shikshaa Simple Learn.jpeg"
+# --- SAFE IMAGE LOADER ---
+# Streamlit Cloud only has files that are actually included in your repository.
+# This helper prevents the whole app from crashing when an image is missing.
+APP_DIR = Path(__file__).resolve().parent
+
+def show_image(relative_path, **kwargs):
+    image_path = APP_DIR / relative_path
+    if image_path.is_file():
+        st.image(str(image_path), **kwargs)
+        return True
+    return False
+
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
     page_title="Python Course for Beginners",
@@ -77,7 +86,8 @@ if "should_scroll" not in st.session_state:
 col1, col2, col3 = st.columns([1, 3, 1])
 
 with col2:
-    st.image("images/Shikshaa Simple Learn.jpeg", use_container_width=True)
+    if not show_image("images/Shikshaa Simple Learn.jpeg", use_container_width=True):
+        st.markdown("<div style='text-align:center;font-size:2rem;font-weight:800;letter-spacing:1px;'>📚 Shikshaa Simple Learn</div>", unsafe_allow_html=True)
 
 # Animated Main Title
 st.markdown("<h1 class='animated-title'>Python Course for Absolute Beginners</h1>", unsafe_allow_html=True)
@@ -129,7 +139,7 @@ st.info(
     "No prior coding experience required!"
 )
 
-st.image("images/What Does a Web Developer Do (and How Do I Become One)_.jpeg")
+show_image("images/What Does a Web Developer Do (and How Do I Become One)_.jpeg")
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Personalization Selectbox
@@ -1696,7 +1706,7 @@ if st.session_state.current_topic:
         st.divider()
         st.header("1. What is a program?")
         st.info("A program is a set of instructions that tells a computer what to do.")
-        st.image("images/Writing code is time-consuming, and even experienced developers spend significant time on repetitive tasks_ AI coding assistants have changed this. These tools suggest code completions as you type, generate entire functions from plain English de.jpeg")
+        show_image("images/Writing code is time-consuming, and even experienced developers spend significant time on repetitive tasks_ AI coding assistants have changed this. These tools suggest code completions as you type, generate entire functions from plain English de.jpeg")
         st.subheader("Think about giving instructions to a person.")
         st.markdown("""
             1. Take a cup.  
@@ -1719,7 +1729,7 @@ if st.session_state.current_topic:
         st.info("Programming is the process of creating instructions for a computer to follow.")
         st.write("In simple words:")
         st.subheader("    🧠 Programming = Giving instructions to a computer.")
-        st.image("images/Download Young smiling man cartoon character holding or showing the blank screen of a laptop computer and pointing hand finger_ .jpeg")
+        show_image("images/Download Young smiling man cartoon character holding or showing the blank screen of a laptop computer and pointing hand finger_ .jpeg")
         st.write("For example:")
         st.code("You → Give instructions → Computer → Performs the task")
         st.markdown("The instructions are written using a **programming language**.")
@@ -1740,13 +1750,13 @@ if st.session_state.current_topic:
             Rust
             """)
 
-        st.image("images/anmol.jpeg")
+        show_image("images/anmol.jpeg")
         st.markdown("These languages allow humans to write instructions in a much more understandable form.")
         st.divider()
         st.header(":red[4. What is a programming language?]")
         st.info("A **programming language** is a language used to communicate instructions to a computer.")
         st.write("For example, in Python:")
-        st.image("images/hellow.jpeg")
+        show_image("images/hellow.jpeg")
         st.write("This tells Python:")
         st.subheader("  **Display Hello** on the screen.")
         st.write("Python then takes care of translating your instructions into things the computer can execute.")
@@ -1771,7 +1781,7 @@ if st.session_state.current_topic:
         st.header(":red[1. What is Python?]")
         st.markdown("**Python is a programming language.**")
         st.write("It allows us to write instructions that a computer can execute.")
-        st.image("images/PY.jpeg", width=650)
+        show_image("images/PY.jpeg", width=650)
         st.write("For example:")
         st.code("""print("Hello World")""")
         st.write("This is Python code.")
@@ -1841,7 +1851,7 @@ Name
 NAME""",
             language="python",
         )
-        st.image("images/case.jpeg", width=600)
+        show_image("images/case.jpeg", width=600)
         st.write("Python treats them as three different names.")
         st.write("Similarly:")
         st.code("print()", language="python")
@@ -1857,7 +1867,7 @@ NAME""",
         st.header("8. Python follows rules")
         st.write("Every programming language has rules.")
         st.write("These rules are called **syntax**.")
-        st.image("images/rules.jpeg")
+        show_image("images/rules.jpeg")
         st.write("For example:")
         st.code('print("Hello")', language="python")
         st.write("follows Python's syntax.")
@@ -1906,7 +1916,7 @@ NAME""",
         +
         Python Interpreter""", language="text")
         st.write("They each have a different job. VS Code is where you write your code, the Python extension adds Python-specific features, and the Python interpreter actually runs your Python code.")
-        st.image("images/vs.jpeg")
+        show_image("images/vs.jpeg")
         st.divider()
 
         # ==========================================
@@ -2537,7 +2547,7 @@ I am learning Python!
             'print("Hello World")',
             language="python"
         )
-        st.image("images/print2.jpeg")
+        show_image("images/print2.jpeg")
 
         st.write("Output:")
 
@@ -2615,7 +2625,7 @@ I am learning Python!
         I am learning Python""",
             language="text"
         )
-        st.image("images/print.jpeg")
+        show_image("images/print.jpeg")
 
         st.info(
             "You can use either double quotes or single quotes for strings."
